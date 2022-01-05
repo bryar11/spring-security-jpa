@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout :: head"></head>
+<body>
+
+	<header th:replace="layout :: header"></header>
+
+	<div class="container py-4">
+
+		<div class="card bg-light">
+			<div class="card-header" th:text="${title}"></div>
+			<div class="card-body">
+
+				<h4 class="card-title">
+					<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/form}"
+						class="btn btn-primary btn-xs">Crear cliente</a>
+				</h4>
+				<table class="table table-striped table-bordered">
+					<thead class="thead-inverse">
+						<tr>
+							<th>Nombre</th>
+							<th>Apellido</th>
+							<th sec:authorize="hasRole('ROLE_USER')">Correo</th>
+							<th>Fecha</th>
+							<th sec:authorize="hasRole('ROLE_ADMIN')">Acciones</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="client: ${clients}">
+							<td th:text="${client.name}"></td>
+							<td th:text="${client.lastname}"></td>
+							<td sec:authorize="hasRole('ROLE_USER')"
+								th:text="${client.email}"></td>
+							<td th:text="${client.createAt}"></td>
+							<td sec:authorize="hasRole('ROLE_ADMIN')"><a
+								class="btn btn-primary btn-xs"
+								th:href="@{/form/} + ${client.id}" th:text="'Editar'"></a> <a
+								class="btn btn-danger btn-xs"
+								th:href="@{/delete/} + ${client.id}" th:text="'Eliminar'"
+								onclick="return confirm('Está seguro que desea eliminar?');"></a>
+							</td>
+						</tr>
+					</tbody>
+
+				</table>
+			</div>
+		</div>
+
+
+	</div>
+
+	<footer th:replace="layout :: footer"></footer>
+</body>
+</html>
