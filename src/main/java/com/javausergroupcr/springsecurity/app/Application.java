@@ -5,10 +5,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringBootDataJpaApplication implements CommandLineRunner {
+public class Application implements CommandLineRunner {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringBootDataJpaApplication.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 
 	@Override
